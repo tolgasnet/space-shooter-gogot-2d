@@ -169,8 +169,21 @@ __meta__ = {
 [node name="ScoreLabel" type="RichTextLabel" parent="."]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 70.0
+margin_right = 90.0
 margin_bottom = 30.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/default_color = Color( 0.729412, 0.745098, 0.239216, 1 )
+custom_colors/selection_color = Color( 0, 0, 0, 1 )
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HiscoreLabel" type="RichTextLabel" parent="."]
+margin_left = 10.0
+margin_top = 40.0
+margin_right = 90.0
+margin_bottom = 60.0
 rect_scale = Vector2( 2, 2 )
 scroll_active = false
 __meta__ = {

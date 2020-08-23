@@ -1,8 +1,9 @@
 extends KinematicBody2D
 class_name Meteor
 
-var resetCounter = 0
+var resetCounter = 4
 var scoreCounter = 0
+var hiscoreCounter = 0
 
 func _ready():
 	position.x = 500
@@ -38,28 +39,33 @@ func _physics_process(delta: float) -> void:
 		if collider is Player:
 			collider.position.x = -5000
 			collider.position.y = -5000
+			resetCounter = 4
 			$"../MainTimer".start()
 			
 		if collider is Bullet:
 			collider.visible = false
 			collider.position.y = -100
 			scoreCounter += 1
+			if (scoreCounter > hiscoreCounter):
+				hiscoreCounter = scoreCounter
 			$"../ScoreLabel".text = "Score: " + (scoreCounter as String)
+			$"../HiscoreLabel".text = "Max: " + (hiscoreCounter as String)
 		
 func _on_Timer_timeout():
-	resetCounter += 1
+	resetCounter -= 1
 	var label: RichTextLabel = $"../MainLabel"
 	label.text = resetCounter as String
 	
-	if resetCounter == 3:
+	if resetCounter == 0:
+		label.text = "Go!"
 		var ship: KinematicBody2D = get_node("../Player")
 		ship.position.x = 500
 		ship.position.y = 530
 		
-	if resetCounter == 4:
+	if resetCounter == -1:
 		$"../MainTimer".stop()
-		resetCounter = 0
+		resetCounter = 4
 		scoreCounter = 0
-		$"../ScoreLabel".text = ""
+		$"../ScoreLabel".text = "Score: 0"
 		label.text = ""
 		
