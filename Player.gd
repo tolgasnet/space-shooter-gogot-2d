@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Player
 
-var speed = 500
+var speed = 550
 
 func _ready():
 	position.x = 500;

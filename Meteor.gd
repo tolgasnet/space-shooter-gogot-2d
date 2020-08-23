@@ -4,15 +4,16 @@ class_name Meteor
 var resetCounter = 4
 var scoreCounter = 0
 var hiscoreCounter = 0
+var meteorSpeed: int
 
 func _ready():
-	position.x = 500
-	position.y = 0
+	reset_meteor()
 	
 func reset_meteor():
 	var ship: KinematicBody2D = get_node("../Player")
 	position.y = 0
-	position.x = rand_range(10, 980)
+	position.x = rand_range(10, 990)
+	meteorSpeed = rand_range(350, 500)
 		
 func play_explosion(collider: KinematicBody2D) -> void:
 	var explosion: AnimatedSprite = get_node("../Explosion")
@@ -22,10 +23,9 @@ func play_explosion(collider: KinematicBody2D) -> void:
 	explosion.position.y = collider.position.y;
 	
 func _physics_process(delta: float) -> void:
-	var speed = rand_range(200, 700)
 	var velocity = Vector2()
 	velocity.y += 1;
-	var newVelocity = velocity.normalized() * speed * delta
+	var newVelocity = velocity.normalized() * meteorSpeed * delta
 	var collision = move_and_collide(newVelocity)
 	
 	if position.y > 600:
