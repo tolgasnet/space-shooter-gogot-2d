@@ -4,18 +4,23 @@ class_name Bullet
 var bulletFired = false
 var bulletFxPlayed = false
 var speed = -1200
+const yOffset = 10
+const topBorder = 0
+const yOutOfScreen = -100
+onready var bulletFx: AudioStreamPlayer2D = get_node("../BulletFx")
+onready var ship: KinematicBody2D = get_node("../Player")
+
+func fire_bullet():
+	bulletFired = true
+	visible = true
+	position.x = ship.position.x
+	position.y = ship.position.y - yOffset
 
 func _physics_process(delta: float) -> void:
-	
 	if Input.is_action_just_pressed('ui_select') and bulletFired == false:
-		bulletFired = true
-		visible = true
-		var ship: KinematicBody2D = get_node("../Player")
-		position.x = ship.position.x
-		position.y = ship.position.y - 10
+		fire_bullet()
 		
 	if bulletFired:
-		var bulletFx: AudioStreamPlayer2D = get_node("../BulletFx")
 		var velocity = Vector2(0, speed)
 		move_and_collide(velocity * delta)
 		
@@ -23,8 +28,7 @@ func _physics_process(delta: float) -> void:
 			bulletFxPlayed = true
 			bulletFx.play()
 			
-		if position.y < 0:
+		if position.y < topBorder:
 			bulletFired = false
-			position.y = -100
-			bulletFx.stop()
 			bulletFxPlayed = false
+			position.y = yOutOfScreen
