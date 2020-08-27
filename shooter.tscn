@@ -114,7 +114,8 @@ extents = Vector2( 24, 20 )
 margin_right = 1024.0
 margin_bottom = 600.0
 texture = ExtResource( 5 )
-stretch_mode = 2
+expand = true
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
