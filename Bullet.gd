@@ -2,6 +2,7 @@ extends KinematicBody2D
 class_name Bullet
 
 var bulletFired = false
+var bulletFxPlayed = false
 var speed = -1200
 
 func _physics_process(delta: float) -> void:
@@ -14,8 +15,16 @@ func _physics_process(delta: float) -> void:
 		position.y = ship.position.y - 10
 		
 	if bulletFired:
+		var bulletFx: AudioStreamPlayer2D = get_node("../BulletFx")
+		var velocity = Vector2(0, speed)
+		move_and_collide(velocity * delta)
+		
+		if bulletFxPlayed == false:
+			bulletFxPlayed = true
+			bulletFx.play()
+			
 		if position.y < 0:
 			bulletFired = false
 			position.y = -100
-		var velocity = Vector2(0, speed)
-		move_and_collide(velocity * delta)
+			bulletFx.stop()
+			bulletFxPlayed = false

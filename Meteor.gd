@@ -21,6 +21,8 @@ func play_explosion(collider: KinematicBody2D) -> void:
 	explosion.play("explosion")
 	explosion.position.x = collider.position.x;
 	explosion.position.y = collider.position.y;
+	var explosionFx: AudioStreamPlayer2D = get_node("../ExplosionFx")
+	explosionFx.play()
 	
 func _physics_process(delta: float) -> void:
 	var velocity = Vector2()
